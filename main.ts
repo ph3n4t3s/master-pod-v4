@@ -35,27 +35,17 @@ DFRobotWiFiIoTI2C.mqttCallbackUserMore(DFRobotWiFiIoTI2C.TOPIC.topic_0, function
     tampon = message.split(",")
     if (tampon[0].compare("Master") == 0) {
         if (tampon[1].compare("ALL-OFF") == 0) {
-            radio.sendString("ALL,ALL-OFF")
             BLUETOOTHT()
+            radio.sendString("ALL,ALL-OFF")
+            WIFIT()
             DFRobotWiFiIoTI2C.mqttSendMessageMore("ALL SYSTEM SHUTDOWN", DFRobotWiFiIoTI2C.TOPIC.topic_0)
-            WIFIT()
-        } else if (tampon[1].compare("TEMP?") == 0) {
-            Temp = xiamiBoard.readSensor(SENSOR.SHTC3, PARA.TEMP)
-            DFRobotWiFiIoTI2C.mqttSendMessageMore("Master,Temp," + Temp, DFRobotWiFiIoTI2C.TOPIC.topic_0)
-            WIFIT()
-        } else if (tampon[1].compare("HUM?") == 0) {
-            Hum = xiamiBoard.readSensor(SENSOR.SHTC3, PARA.HUM)
-            DFRobotWiFiIoTI2C.mqttSendMessageMore("Master,Hum," + Hum, DFRobotWiFiIoTI2C.TOPIC.topic_0)
-            WIFIT()
         }
     } else {
-        radio.sendString(message)
         BLUETOOTHT()
+        radio.sendString(message)
     }
 })
 let tampon: string[] = []
-let Hum = 0
-let Temp = 0
 xiamiBoard.initXiaMiBoard()
 xiamiBoard.LED(1, 0, 0)
 xiamiBoard.setIndexColor(0, 0xff0000)
@@ -77,14 +67,9 @@ DFRobotWiFiIoTI2C.SERVERS.SIOT,
 )
 DFRobotWiFiIoTI2C.mqttSendMessageMore("Master is alive !", DFRobotWiFiIoTI2C.TOPIC.topic_0)
 xiamiBoard.OLEDshowUserText("Serveur MQTT Connecté", 3, 0)
-xiamiBoard.OLEDshowUserText("Initialisation capteurs", 4, 0)
-xiamiBoard.tempHumiInit(SENSOR.SHTC3)
-Temp = xiamiBoard.readSensor(SENSOR.SHTC3, PARA.TEMP)
-Hum = xiamiBoard.readSensor(SENSOR.SHTC3, PARA.HUM)
 xiamiBoard.ledBlank()
 xiamiBoard.OLEDclear()
 xiamiBoard.LED(0, 0, 1)
-xiamiBoard.OLEDshowUserText("Temp=" + Temp + " Hum=" + Hum, 7, 0)
 basic.forever(function () {
     xiamiBoard.ledBlank()
 })

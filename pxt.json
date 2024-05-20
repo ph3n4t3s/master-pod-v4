@@ -6,7 +6,7 @@
         "radio": "*",
         "microphone": "*",
         "DFRobot_WIFI_I0T_I2C": "github:dfrobot/pxt-dfrobot_wifi_iot_i2c#v1.2.3",
-        "DFRobot_xia_mi_Board": "github:DFRobot/pxt-DFRobot_xia_mi_Board#v0.7.0"
+        "DFRobot_xia_mi_Board": "github:dfrobot/pxt-dfrobot_xia_mi_board#v0.7.0"
     },
     "files": [
         "main.blocks",
